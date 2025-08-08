@@ -1,0 +1,418 @@
+I understand you'd like to move the "Education" section to the left sidebar of your HTML portfolio. I'll provide you with the updated HTML code to achieve this.
+
+The key change is taking the `<section id="education">` block and placing it inside the `<aside>` element, which represents the left sidebar. I'll also add some Tailwind CSS classes to ensure it has a consistent look and feel with the other elements in the sidebar, like the "Technical Skills" section.
+
+Here is the full HTML code with the requested change.
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviral Gupta | QA Engineer</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // Customizations for Tailwind to add a new color palette
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': {
+                            '50': '#eff6ff',
+                            '100': '#dbeafe',
+                            '200': '#bfdbfe',
+                            '300': '#93c5fd',
+                            '400': '#60a5fa',
+                            '500': '#3b82f6',
+                            '600': '#2563eb',
+                            '700': '#1d4ed8',
+                            '800': '#1e40af',
+                            '900': '#1e3a8a',
+                            '950': '#172554',
+                        },
+                        'neutral': {
+                            '50': '#f8fafc',
+                            '100': '#f1f5f9',
+                            '200': '#e2e8f0',
+                            '300': '#cbd5e1',
+                            '400': '#94a3b8',
+                            '500': '#64748b',
+                            '600': '#475569',
+                            '700': '#334155',
+                            '800': '#1e293b',
+                            '900': '#0f172a',
+                            '950': '#020617',
+                        }
+                    }
+                }
+            }
+        </script>
+
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Subtle gradient background */
+            background-color: #f8fafc;
+            background-image: linear-gradient(to bottom right, #f8fafc, #eef2f7);
+        }
+        .dark body {
+            /* Dark gradient background */
+            background-color: #0f172a;
+            background-image: linear-gradient(to bottom right, #0f172a, #1e293b);
+        }
+        /* Style for the typing cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #2563eb; /* Primary color cursor */
+            animation: blink 0.7s infinite;
+        }
+        .dark .typing-cursor {
+            background-color: #60a5fa; /* Lighter primary for dark mode */
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        /* Animation for elements fading in on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Custom timeline styles for experience section */
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem; /* Space for icon and line */
+            padding-bottom: 2rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #dbeafe; /* Light primary */
+            border: 4px solid #f8fafc;
+        }
+        .dark .timeline-icon {
+            background-color: #1e40af; /* Dark primary */
+            border-color: #1e293b;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 1rem;
+            top: 2rem;
+            bottom: 0;
+            width: 2px;
+            background-color: #dbeafe;
+        }
+        .dark .timeline-line {
+             background-color: #1e40af;
+        }
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-neutral-800 dark:text-neutral-200">
+
+    <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-2 rounded-full bg-white/50 dark:bg-neutral-800/50 backdrop-blur-sm text-neutral-800 dark:text-neutral-200 shadow-lg border border-neutral-200 dark:border-neutral-700 transition-transform duration-200 hover:scale-110">
+        <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 003.636 3.636l-.707.707a1 1 0 001.414 1.414l.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zM13.636 16.364a1 1 0 00-1.414 1.414l.707.707a1 1 0 001.414-1.414l-.707-.707z"></path></svg>
+    </button>
+
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+
+            <aside class="lg:col-span-4 lg:sticky lg:top-8 mb-8 lg:mb-0">
+                <div class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-6 text-center transition-shadow duration-300 hover:shadow-2xl">
+                    <img src="https://i.ibb.co/tZ0w3v4/profile-pic.png" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/200x200/e2e8f0/4a5568?text=AG';" 
+                            alt="Aviral Gupta" 
+                            class="w-40 h-40 rounded-full mx-auto mb-4 object-cover border-4 border-white dark:border-neutral-800 shadow-md">
+                    
+                    <h1 class="text-3xl font-bold text-neutral-900 dark:text-white">Aviral Gupta</h1>
+                    <h2 class="text-lg font-medium text-primary-600 dark:text-primary-400 mt-1 h-7">
+                        <span id="typing-text"></span><span class="typing-cursor"></span>
+                    </h2>
+
+                    <div class="text-left mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700 space-y-3">
+                        <a href="mailto:itsmeaviralgupta@gmail.com" class="flex items-center text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 group">
+                            <svg class="w-5 h-5 mr-3 text-neutral-400 group-hover:text-primary-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span>itsmeaviralgupta@gmail.com</span>
+                        </a>
+                        <div class="flex items-center text-neutral-600 dark:text-neutral-300">
+                            <svg class="w-5 h-5 mr-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span>+91 7906558020</span>
+                        </div>
+                        <div class="flex items-center text-neutral-600 dark:text-neutral-300">
+                            <svg class="w-5 h-5 mr-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>Meerut, UP, India</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700 flex justify-center space-x-4">
+                        <a href="https://www.linkedin.com/in/aviralgupta17/" target="_blank" rel="noopener noreferrer" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 transform hover:-translate-y-1">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="https://github.com/aviralgupta17" target="_blank" rel="noopener noreferrer" class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all duration-200 transform hover:-translate-y-1">
+                            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <section id="skills" class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-6 mt-8 reveal transition-shadow duration-300 hover:shadow-2xl text-left">
+                        <h2 class="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Technical Skills</h2>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400 mb-2">Core Technologies</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">HTML</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">CSS</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">JavaScript</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">SQL</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400 mb-2">QA & Testing</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">Manual Testing</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">Test Case Design</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">Bug Reporting</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">Regression Testing</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-primary-600 dark:text-primary-400 mb-2">Tools & Platforms</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">Jira</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">MS Excel</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">English Typing (RataType)</span>
+                                    <span class="bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300 text-sm font-medium px-3 py-1.5 rounded-md">Git & GitHub</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                                        <section id="education" class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-6 mt-8 reveal transition-shadow duration-300 hover:shadow-2xl text-left">
+                        <h2 class="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Education</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Master of Computer Application (MCA)</h3>
+                                <p class="font-medium text-neutral-600 dark:text-neutral-300">Dr. A.P.J. Abdul Kalam Technical University</p>
+                                <p class="text-sm text-neutral-500 dark:text-neutral-400">2022 - 2024</p>
+                            </div>
+                            <hr class="border-neutral-200/70 dark:border-neutral-700/50">
+                            <div>
+                                <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Bachelor of Computer Application (BCA)</h3>
+                                <p class="font-medium text-neutral-600 dark:text-neutral-300">Chaudhary Charan Singh University, Meerut</p>
+                                <p class="text-sm text-neutral-500 dark:text-neutral-400">2019 - 2022 </p>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </aside>
+
+            <main class="lg:col-span-8">
+                
+                <section id="about" class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8 reveal transition-shadow duration-300 hover:shadow-2xl">
+                    <h2 class="text-3xl font-bold text-neutral-900 dark:text-white mb-4">About Me</h2>
+                    <p class="text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
+                        I am a dedicated manual tester with a keen eye for detail and a strong focus on ensuring software quality. I excel at finding bugs, writing test cases, and improving user experiences. With my problem-solving skills and patience, I help deliver reliable and efficient software products.
+                    </p>
+                </section>
+
+                <section id="experience" class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8 reveal transition-shadow duration-300 hover:shadow-2xl">
+                    <h2 class="text-3xl font-bold text-neutral-900 dark:text-white mb-8">Work Experience</h2>
+                    <div class="relative">
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <svg class="w-5 h-5 text-primary-600 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-100">QA Manual Tester</h3>
+                            <p class="font-medium text-neutral-600 dark:text-neutral-300">Saral Pro Technologies Pvt Ltd | Meerut</p>
+                            <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Oct 2024 - Present</p>
+                            <ul class="space-y-2 text-neutral-600 dark:text-neutral-300 list-disc list-inside">
+                                <li>Conducted manual testing for web and mobile applications to ensure software quality.</li>
+                                <li>Created detailed test cases, test plans, and test scenarios.</li>
+                                <li>Identified, reported, and tracked bugs using tools like Jira and Trello.</li>
+                                <li>Performed regression, functional, and UI/UX testing to validate system performance.</li>
+                                <li>Collaborated with developers and product teams to resolve issues and improve software quality.</li>
+                                <li class="font-semibold text-primary-700 dark:text-primary-400">Key Achievement: Ensured timely delivery of error-free software by identifying and resolving critical issues.</li>
+                            </ul>
+                        </div>
+                        <div class="timeline-item">
+                           <div class="timeline-icon">
+                                <svg class="w-5 h-5 text-primary-600 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            </div>
+                            <div class="timeline-line"></div>
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-neutral-100">QA Manual Tester</h3>
+                            <p class="font-medium text-neutral-600 dark:text-neutral-300">Lotuamaize IT Solutions</p>
+                            <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Nov 2022 - Sep 2023</p>
+                            <ul class="space-y-2 text-neutral-600 dark:text-neutral-300 list-disc list-inside">
+                                <li>Analyzed business and functional requirements for the MyTutorOnline platform.</li>
+                                <li>Created and executed comprehensive test cases based on specifications.</li>
+                                <li>Executed test cases manually for both web and mobile versions.</li>
+                                <li>Collaborated with developers to track the lifecycle of reported issues in Jira.</li>
+                                <li>Conducted regression testing on previously tested features after new updates.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="projects" class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8 reveal transition-shadow duration-300 hover:shadow-2xl">
+                    <h2 class="text-3xl font-bold text-neutral-900 dark:text-white mb-6">Project Implementation Experience</h2>
+                    <div class="space-y-6">
+                        <div class="p-6 bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 rounded-lg">
+                            <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Hospital Information Management System</h3>
+                            <p class="text-neutral-600 dark:text-neutral-300 mt-2">
+                                Performed end-to-end testing of key modules, focusing on the accuracy of financial reports and the reliability of the diagnostic process workflow. Provided technical support and training to healthcare staff on software usage and troubleshooting.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 rounded-lg">
+                            <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Pathology Lab Software</h3>
+                            <p class="text-neutral-600 dark:text-neutral-300 mt-2">
+                                Executed targeted testing on the pharmacy module to enhance and streamline operational processes. Collaborated with development teams to resolve bugs and documented all test procedures and outcomes.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="additional-info" class="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-lg rounded-2xl shadow-xl p-8 mb-8 reveal transition-shadow duration-300 hover:shadow-2xl">
+                    <h2 class="text-3xl font-bold text-neutral-900 dark:text-white mb-6">Additional Information</h2>
+                    <ul class="space-y-3 text-neutral-600 dark:text-neutral-300 list-none">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-3 mt-1 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Provided technical support for hospital management systems and pathology lab software, resolving user issues and ensuring smooth operation.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-3 mt-1 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Collaborated with development teams to troubleshoot and resolve software bugs and improve system stability.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-3 mt-1 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Trained healthcare staff on software usage, troubleshooting techniques, and best practices for utilizing new features and reporting tickets.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-3 mt-1 text-primary-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Developed and maintained technical documentation, including user guides and troubleshooting procedures.</span>
+                        </li>
+                    </ul>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Typing Effect ---
+            const typingTextElement = document.getElementById('typing-text');
+            const jobTitles = ["QA Engineer", "Manual Tester", "Software Quality Analyst"];
+            let titleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentTitle = jobTitles[titleIndex];
+                let textToShow = '';
+
+                if (isDeleting) {
+                    textToShow = currentTitle.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    textToShow = currentTitle.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                typingTextElement.textContent = textToShow;
+
+                let typeSpeed = isDeleting ? 75 : 150;
+
+                if (!isDeleting && charIndex === currentTitle.length) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    titleIndex = (titleIndex + 1) % jobTitles.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+            
+            if (typingTextElement) {
+                type();
+            }
+
+            // --- Theme Switcher ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                }
+            }
+            
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
+            themeToggleBtn.addEventListener('click', () => {
+                const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+
+            // --- Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
+```
